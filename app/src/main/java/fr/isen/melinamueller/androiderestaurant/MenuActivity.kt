@@ -19,42 +19,57 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import fr.isen.melinamueller.androiderestaurant.ui.theme.AndroidERestaurantTheme
+import androidx.compose.material3.Divider
 
-class MenuActivity(val category: Category) : ComponentActivity() {
+class MenuActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             AndroidERestaurantTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-
-                    Column (
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ){
-                        Text(text = category.name)
-
-                        for (dish in category.dishes){
-                            val context = LocalContext.current
-
-                            Button(onClick = {
-                                Toast.makeText(context, "Voilà $dish", Toast.LENGTH_SHORT).show()
-                            },
-                            ) {
-                                Text(text = dish)
-                            }
-
-                            Button(onClick = {
-                                Toast.makeText(context, "Going back to Home", Toast.LENGTH_SHORT).show()
-                            },)
-                            {
-                                Text(text = "Back")
-                            }
-                        }
-
-                    }
+                    view()
                 }
             }
+        }
+    }
+
+    @Composable
+    fun view(){
+        Column (
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ){
+            val categoryName = intent.getStringExtra("categoryName")
+            val category = categoryMap[categoryName]
+
+            Text(text = category!!.name)
+
+            Divider()
+
+            val context = LocalContext.current
+
+            for (dish in category.dishes){
+
+                Button(onClick = {
+                    Toast.makeText(context, "Voilà $dish", Toast.LENGTH_SHORT).show()
+                },
+                ) {
+                    Text(text = dish)
+                }
+
+            }
+
+            Divider()
+
+            Button(onClick = {
+                Toast.makeText(context, "Going back Home", Toast.LENGTH_SHORT).show()
+                finish()
+            },)
+            {
+                Text(text = "Back")
+            }
+
         }
     }
 

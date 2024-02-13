@@ -34,3 +34,5 @@ class Category(
 val entrees = Category("Entrées", listOf("Salad", "Soup", "Bruschetta"))
 val plats = Category("Plats", listOf("Pasta", "Burger", "Pizza"))
 val desserts = Category("Desserts", listOf("Mousse au chocolat", "gateau", "glace"))
+
+val categoryMap = mapOf("entrees" to entrees, "plats" to plats, "desserts" to desserts)
