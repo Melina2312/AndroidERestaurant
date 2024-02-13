@@ -20,8 +20,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import fr.isen.melinamueller.androiderestaurant.ui.theme.AndroidERestaurantTheme
 
-class MainActivity : ComponentActivity() {
-
+class MenuActivity(val category: Category) : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -33,32 +32,30 @@ class MainActivity : ComponentActivity() {
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ){
-                        Text(text = "Bienvenue!")
+                        Text(text = category.name)
 
-                        val context = LocalContext.current
+                        for (dish in category.dishes){
+                            val context = LocalContext.current
 
-                        Button(onClick = {
-                            Toast.makeText(context, "Voilà les entrées", Toast.LENGTH_SHORT).show()
-                        },
+                            Button(onClick = {
+                                Toast.makeText(context, "Voilà $dish", Toast.LENGTH_SHORT).show()
+                            },
                             ) {
-                            Text(text = "Entrées")
-                        }
-                        Button(onClick = {
-                            Toast.makeText(context, "Voilà les plats", Toast.LENGTH_SHORT).show()
-                        }) {
-                            Text(text = "Plats")
-                        }
-                        Button(onClick = {
-                            //Toast.makeText(context, "Voilà les desserts", Toast.LENGTH_SHORT, modifier = Modifier.)
-                            Toast.makeText(context, "Voilà les desserts", Toast.LENGTH_SHORT).show()
-                        }) {
-                            Text(text = "Desserts")
-                        }
+                                Text(text = dish)
+                            }
 
+                            Button(onClick = {
+                                Toast.makeText(context, "Going back to Home", Toast.LENGTH_SHORT).show()
+                            },)
+                            {
+                                Text(text = "Back")
+                            }
+                        }
 
                     }
                 }
             }
         }
     }
+
 }
